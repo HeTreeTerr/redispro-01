@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 1.配置连接池信息 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- 最大连接数 -->
+		<property name="maxTotal" value="50"></property>
+		<!-- 最大空闲数 -->
+		<property name="maxIdle" value="5"></property>
+		<!-- 设置其他更多连接项。。。 -->
+	</bean>
+	
+	<!-- 2.Spring整合Jedis(redis) -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<!-- 指定服务地址 -->
+		<property name="hostName" value="192.168.40.165"></property>
+		<!-- 指定端口号 -->
+		<property name="port" value="6379"></property>
+		<!-- 密码 -->
+		<property name="password" value="root"></property>
+		<!-- 自定义连接池配置 -->
+		<property name="poolConfig" ref="jedisPoolConfig"></property>
+	</bean>
+	
+	<!-- 3.RedisTemplate -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"></property>
+		
+		<!-- key进行序列化设置，默认JDK改为String -->
+		<property name="keySerializer"> 
+        	<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/> 
+        </property> 
+		<property name="valueSerializer"> 
+		 	<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/> 
+		</property> 
+		<property name="hashKeySerializer"> 
+			<!-- 默认序列化方式 -->
+		 	<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/> 
+		</property> 
+		<property name="hashValueSerializer"> 
+		 	<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/> 
+		</property> 
+	</bean>
+    
+	<!-- 注解注入bean -->
+    <context:component-scan base-package="com.hss">
+          <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+</beans>
