@@ -2,6 +2,7 @@ package com.hss.test.redis;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.hss.constant.RedisConstant;
 import org.junit.Test;
 
 import com.hss.bean.User;
@@ -23,11 +24,11 @@ public class RedisDemo {
 	 */
 	public static void main(String[] args) {
 
-		String host = "192.168.2.110";
-		int port = 6379;
+		String host = RedisConstant.HOST;
+		int port = RedisConstant.PORT;
 		Jedis jedis = new Jedis(host, port);
 		//密码
-		jedis.auth("root");
+		//jedis.auth(RedisConstant.PASSWORD);
 		
 		System.out.println(jedis.ping());
 		//关闭连接
@@ -42,11 +43,11 @@ public class RedisDemo {
 	@Test
 	public void t1() {
 		
-		String host = "192.168.40.175";
-		int port = 6379;
+		String host = RedisConstant.HOST;
+		int port = RedisConstant.PORT;
 		Jedis jedis = new Jedis(host, port);
 		//密码
-		jedis.auth("root");
+		//jedis.auth(RedisConstant.PASSWORD);
 		
 		//写入String型数据
 		//jedis.set("strName", "java存入redis");

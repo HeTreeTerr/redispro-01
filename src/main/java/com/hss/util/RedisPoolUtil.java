@@ -1,5 +1,7 @@
 package com.hss.util;
 
+import com.hss.constant.RedisConstant;
+import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -17,17 +19,20 @@ public class RedisPoolUtil {
 		poolConfig.setMaxIdle(1);
 		
 		//.......
-		String host = "10.50.228.168";
-		int port = 6379;
+		String host = RedisConstant.HOST;
+		int port = RedisConstant.PORT;
 		pool = new JedisPool(poolConfig,host,port);
 		
 	}
+
 	//获取链接
 	public static Jedis getRedis() {
 		
 		Jedis jedis = pool.getResource();
 		//密码
-		jedis.auth("root");
+		if(!StringUtils.isEmpty(RedisConstant.PASSWORD)){
+			jedis.auth(RedisConstant.PASSWORD);
+		}
 		return jedis;
 	}
 	//关闭连接

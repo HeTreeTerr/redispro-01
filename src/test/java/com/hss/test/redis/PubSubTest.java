@@ -1,5 +1,6 @@
 package com.hss.test.redis;
 
+import com.hss.constant.RedisConstant;
 import com.hss.listener.Publisher;
 import com.hss.listener.SubThread;
 
@@ -15,7 +16,11 @@ public class PubSubTest {
 	public static void main( String[] args )
     {
         // 连接redis服务端
-        JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), "192.168.2.104", 6379,10000,"root");
+        JedisPool jedisPool = new JedisPool(new JedisPoolConfig(),
+                RedisConstant.HOST,
+                RedisConstant.PORT,
+                10000,
+                RedisConstant.PASSWORD);
         
         System.out.println(String.format("redis pool is starting, redis ip %s, redis port %d", "127.0.0.1", 6379));
 
