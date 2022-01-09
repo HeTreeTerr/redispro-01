@@ -1,9 +1,12 @@
-package com.hss.utest;
+package com.hss.test.excel;
 
 import org.junit.Test;
 
 import com.hss.bean.UserExcel;
 
+/**
+ * excel 导入导出
+ */
 public class Test1 {
 
 	@Test

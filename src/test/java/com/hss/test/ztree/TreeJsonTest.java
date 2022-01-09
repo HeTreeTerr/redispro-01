@@ -1,4 +1,4 @@
-package com.hss.test;
+package com.hss.test.ztree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,9 @@ import com.hss.bean.Node;
 import com.hss.util.JsonFormatTool;
 import com.hss.util.TreeUtils;
 
+/**
+ * ztree
+ */
 public class TreeJsonTest {
 
 	@Test

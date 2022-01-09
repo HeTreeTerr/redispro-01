@@ -1,10 +1,13 @@
-package com.hss.test;
+package com.hss.test.redis;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hss.service.UserService;
 
+/**
+ * RedisTemplate
+ */
 public class RedisTemplateDemo {
 
 	/**

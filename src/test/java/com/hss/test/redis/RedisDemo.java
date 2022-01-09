@@ -1,4 +1,4 @@
-package com.hss.test;
+package com.hss.test.redis;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +9,12 @@ import com.hss.util.RedisPoolUtil;
 
 import redis.clients.jedis.Jedis;
 
+/**
+ * redis 基础操作
+ * 1. 基础链接 ping/pong
+ * 2. string 数据类型操作
+ * 3. hash 数据类型操作
+ */
 public class RedisDemo {
 
 	/**
@@ -16,7 +22,7 @@ public class RedisDemo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		String host = "192.168.2.110";
 		int port = 6379;
 		Jedis jedis = new Jedis(host, port);
@@ -27,7 +33,12 @@ public class RedisDemo {
 		//关闭连接
 		jedis.close();
 	}
-	
+
+	/**
+	 * redis
+	 * string
+	 * 取值/赋值
+	 */
 	@Test
 	public void t1() {
 		
@@ -114,6 +125,7 @@ public class RedisDemo {
 	
 	/**
 	 * 对上面的方法进行优化
+	 * Jedis完成Hash类型操作
 	 * User
 	 */
 	@Test

@@ -1,10 +1,4 @@
-package com.hss.test;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+package com.hss.test.redis;
 
 import com.hss.listener.Publisher;
 import com.hss.listener.SubThread;
@@ -12,6 +6,10 @@ import com.hss.listener.SubThread;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+/**
+ * redis
+ * 发布/订阅
+ */
 public class PubSubTest {
 	
 	public static void main( String[] args )

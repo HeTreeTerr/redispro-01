@@ -1,4 +1,4 @@
-package com.hss.test;
+package com.hss.test.redis;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -6,10 +6,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.hss.bean.User;
 import com.hss.service.UserService;
 
+/**
+ * redis
+ * hash 数据类型操作
+ */
 public class HashRedisTemplateDemo {
 
 	/**
 	 * 测试hash RedisTemplate
+	 * 赋值
 	 */
 	@Test
 	public void t1() {
@@ -30,7 +35,11 @@ public class HashRedisTemplateDemo {
 		
 		ctx.close();
 	}
-	
+
+	/**
+	 * 测试hash RedisTemplate
+	 * 取值
+	 */
 	@Test
 	public void t2() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring_redis.xml");
