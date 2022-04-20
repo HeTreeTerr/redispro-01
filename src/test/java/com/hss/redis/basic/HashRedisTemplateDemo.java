@@ -1,5 +1,6 @@
 package com.hss.redis.basic;
 
+import com.hss.service.HashCommandService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ public class HashRedisTemplateDemo {
 	private final static Logger logger = Logger.getLogger(HashRedisTemplateDemo.class);
 
 	@Autowired
-	private UserService userService;
+	private HashCommandService hashCommandService;
 
 	/**
 	 * 测试hash RedisTemplate
@@ -37,7 +38,7 @@ public class HashRedisTemplateDemo {
 		user.setUsername("地瓜");
 		user.setAge(18);
 		user.setPassword("666");
-		userService.addUser(user);
+		hashCommandService.put(user);
 		logger.info("hash put success");
 	}
 
@@ -47,7 +48,7 @@ public class HashRedisTemplateDemo {
 	 */
 	@Test
 	public void getHashValue() {
-		User user = userService.selectById(3);
+		User user = hashCommandService.get(1);
 		logger.info("hash get user=" + user);
 	}
 }

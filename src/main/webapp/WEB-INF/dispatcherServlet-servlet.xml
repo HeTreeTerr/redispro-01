@@ -36,5 +36,5 @@
 	<!-- 配置任务扫描 -->
 	<task:annotation-driven />
 	<!-- 配置扫描任务位置 -->
-    <context:component-scan base-package="com.hss.task" />
+    <!--<context:component-scan base-package="com.hss.task" />-->
 </beans>
