@@ -2,6 +2,10 @@ package com.hss.controller;
 
 import java.util.Map;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import com.hss.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +17,8 @@ import com.hss.service.UserService;
 
 @Controller
 public class UserController {
+
+	private final static Logger logger = Logger.getLogger(UserController.class);
 	
 	@Autowired
 	UserService userService;
@@ -32,7 +38,7 @@ public class UserController {
 		/**
 		 * 1.验证码比较
 		 */
-		
+		logger.info("验证码valcode=" + valcode);
 		/**
 		 * 2.执行登录
 		 */
@@ -44,7 +50,7 @@ public class UserController {
 			//(执行登录功能)
 			User user = userService.login(username, password);
 			//判断是否登录成功
-			if(user != null) {//登录成功
+			if(ObjectUtil.isNotEmpty(user)) {//登录成功
 				//清空对应的所有key
 				return "/success.jsp";
 			}else {//登录不成功
