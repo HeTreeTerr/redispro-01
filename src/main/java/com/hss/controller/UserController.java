@@ -21,10 +21,9 @@ public class UserController {
 	private final static Logger logger = Logger.getLogger(UserController.class);
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	/**
-	 * 
 	 * @param username 用户名
 	 * @param password 密码
 	 * @param valcode 验证码

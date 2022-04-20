@@ -7,7 +7,7 @@ import com.hss.bean.User;
 public interface UserService {
 
 	/**
-	 * 
+	 * 用户登录
 	 * @param username 用户名
 	 * @param password 密码
 	 * @return
@@ -15,14 +15,14 @@ public interface UserService {
 	User login(String username,String password);
 	
 	/**
-	 * 
+	 * 登录失败限制次数
 	 * @param uname 用户名
 	 * @return
 	 */
 	String loginValdate(String uname);
 	
 	/**
-	 * 1判断当前登录用户是否被限制登录
+	 * 判断当前登录用户是否被限制登录
 	 * @param uname
 	 * @return
 	 */
@@ -35,7 +35,7 @@ public interface UserService {
 	void addUser(User u);
 	
 	/**
-	 * 
+	 * 查询用户
 	 * @param userId
 	 * @return
 	 */

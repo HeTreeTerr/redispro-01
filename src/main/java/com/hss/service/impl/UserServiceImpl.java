@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import com.hss.mapper.UserMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserService{
 	//作用相当于：redisTemplate.opsForValue()
 	@Resource(name="redisTemplate")
 	private ValueOperations<String, String> string;
+
+	@Autowired
+	private UserMapper userMapper;
 
 	@Override
 	public User login(String username, String password) {
@@ -122,12 +126,7 @@ public class UserServiceImpl implements UserService{
 			logger.info("redis中查询的数据");
 			return user;
 		}else {//如果不存在，从数据库中查询，取出赋给Redis,并返回
-			User user = new User();
-			user.setId(userId);
-			user.setName("hss");
-			user.setUsername("地瓜");
-			user.setAge(18);
-			user.setPassword("666");
+			User user = userMapper.selectById(userId);
 			//redisTemplate.opsForHash().put("user", user.getId(), user);
 			hash.put(User.getUser(), user.getId(), user);
 			logger.info("数据库中查询的数据");
