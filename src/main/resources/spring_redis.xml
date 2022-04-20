@@ -21,7 +21,7 @@
 	<!-- 2.Spring整合Jedis(redis) -->
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 		<!-- 指定服务地址 -->
-		<property name="hostName" value="192.168.40.165"></property>
+		<property name="hostName" value="127.0.0.1"></property>
 		<!-- 指定端口号 -->
 		<property name="port" value="6379"></property>
 		<!-- 密码 -->
