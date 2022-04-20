@@ -43,10 +43,10 @@
 		</property> 
 		<property name="hashKeySerializer"> 
 			<!-- 默认序列化方式 -->
-		 	<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/> 
+		 	<bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
 		</property> 
 		<property name="hashValueSerializer"> 
-		 	<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/> 
+		 	<bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
 		</property> 
 	</bean>
     
