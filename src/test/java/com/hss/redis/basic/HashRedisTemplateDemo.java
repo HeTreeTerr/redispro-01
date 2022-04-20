@@ -1,4 +1,4 @@
-package com.hss.test.redis;
+package com.hss.redis.basic;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

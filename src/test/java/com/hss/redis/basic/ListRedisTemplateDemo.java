@@ -1,4 +1,4 @@
-package com.hss.test.redis;
+package com.hss.redis.basic;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.hss.service.UserService;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring_redis.xml"})
-public class ListRedisTemplate {
+public class ListRedisTemplateDemo {
 	
 	private String cardId = "1009688";
 

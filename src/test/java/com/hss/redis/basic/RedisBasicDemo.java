@@ -1,4 +1,4 @@
-package com.hss.test.redis;
+package com.hss.redis.basic;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import redis.clients.jedis.Jedis;
  * 2. string 数据类型操作
  * 3. hash 数据类型操作
  */
-public class RedisDemo {
+public class RedisBasicDemo {
 
 	/**
 	 * Java端通过Jedis连接redis
@@ -59,11 +59,10 @@ public class RedisDemo {
 		jedis.close();
 	}
 	
-	/*
+	/**
 	 * Redis String作用：为了减轻数据库（MYSQL）的访问压力
 	 * 需求：判断某KEY是否存在，如果存在，就从Redis中查询
 	 * 		如果不存在，就查询数据库，且将查询出的数据存入Redis
-	 * 
 	 */
 	@Test
 	public void t2() {

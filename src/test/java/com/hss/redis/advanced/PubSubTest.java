@@ -1,4 +1,4 @@
-package com.hss.test.redis;
+package com.hss.redis.advanced;
 
 import com.hss.constant.RedisConstant;
 import com.hss.listener.Publisher;
