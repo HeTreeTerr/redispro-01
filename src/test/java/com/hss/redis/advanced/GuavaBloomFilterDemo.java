@@ -1,7 +1,9 @@
-package com.hss.util;
+package com.hss.redis.advanced;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
+import org.apache.log4j.Logger;
+import org.junit.Test;
 
 import java.nio.charset.Charset;
 
@@ -12,9 +14,12 @@ import java.nio.charset.Charset;
  * 缓存穿透：一个不存在的数据，有很多个线程访问，不断的直接请求数据库，导致服务器宕机。
  *
  */
-public class GuavaBloomFilter {
+public class GuavaBloomFilterDemo {
 
-    public static void main(String[] args) {
+    private final static Logger logger = Logger.getLogger(GuavaBloomFilterDemo.class);
+
+    @Test
+    public void test() {
 
         /*
         参数1:字符编码集,
@@ -37,6 +42,6 @@ public class GuavaBloomFilter {
                 count ++;
             }
         }
-        System.out.println("count :  "+count);
+        logger.info("count :  "+count);
     }
 }

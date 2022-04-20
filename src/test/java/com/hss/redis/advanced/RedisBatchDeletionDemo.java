@@ -1,20 +1,12 @@
 package com.hss.redis.advanced;
 
-import com.hss.constant.RedisConstant;
-import com.hss.redis.basic.HashRedisTemplateDemo;
 import com.hss.service.UniversalCommandService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-
-import java.util.Set;
 
 /**
  * redis 批量删除
