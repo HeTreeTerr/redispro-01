@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hss.service.ListCommandService;
 import com.hss.service.LogisticsService;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import com.hss.service.UserService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring_redis.xml"})
 public class ListRedisTemplateDemo {
+
+	private final static Logger logger = Logger.getLogger(ListRedisTemplateDemo.class);
 	
 	private static final String cardId = "1009688";
 
@@ -34,7 +37,7 @@ public class ListRedisTemplateDemo {
 	@Test
 	public void test() {
 		listCommandService.listAdd();
-		System.out.println("添加成功");
+		logger.info("添加成功");
 	}
 
 	/**
@@ -43,7 +46,7 @@ public class ListRedisTemplateDemo {
 	@Test
 	public void test2() {
 		List<String> list = listCommandService.listRange();
-		System.out.println("redisTemplate list类型数据操作："+list.toString());
+		logger.info("redisTemplate list类型数据操作："+list.toString());
 	}
 
 	/**
@@ -51,43 +54,42 @@ public class ListRedisTemplateDemo {
 	 */
 	@Test
 	public void test3() {
-		int pageNum = 3;//当前页
-		int pageSize = 4;//每页显示3条数据
+		int pageNum = 1;//当前页
+		int pageSize = 3;//每页显示3条数据
 		List<String> list = listCommandService.listRangPageHelper(pageNum, pageSize);
 		
 		for(String s : list) {
-			System.out.println(s);
+			logger.info(s);
 		}		
 	}
 
 	@Test
 	public void test4() {
 		//初始化物流信息
-		//String cardId = "1009688";
 		logisticsService.listQueueInit(cardId);
-		System.out.println("初始化物流信息成功");
+		logger.info("初始化物流信息成功");
 	}
 	
 	@Test
 	public void test5() {
 		//更新物流信息
 		logisticsService.listQueueTouch(cardId);
-		System.out.println("物流信息更新成功");
+		logger.info("物流信息更新成功");
 	}
 	
 	@Test
 	public void test6() {
 		//用户查询物流信息
 		List<String> listSucc = logisticsService.listQueueSucc(cardId);
-		System.out.println("用户查询物流进度---------->");
-		System.out.println(listSucc);
+		logger.info("用户查询物流进度---------->");
+		logger.info(listSucc);
 	}
 	
 	@Test 
 	public void test7() {
 		//物流公司查询物流信息
 		List<String>listWait = logisticsService.listQueueWait(cardId);
-		System.out.println("物流公司查询剩余任务--------->");
-		System.out.println(listWait);
+		logger.info("物流公司查询剩余任务--------->");
+		logger.info(listWait);
 	}
 }

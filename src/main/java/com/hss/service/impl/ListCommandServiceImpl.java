@@ -1,6 +1,7 @@
 package com.hss.service.impl;
 
 import com.hss.service.ListCommandService;
+import org.apache.log4j.Logger;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Service
 public class ListCommandServiceImpl implements ListCommandService {
+
+    private final static Logger logger = Logger.getLogger(ListCommandServiceImpl.class);
 
     //作用相当于：redisTemplate.opsForList()
     @Resource(name="redisTemplate")
@@ -49,7 +52,7 @@ public class ListCommandServiceImpl implements ListCommandService {
         Integer stop = pageSize*pageNum-1;
         List<String> list1 = list.range(key, start, stop);
         Long count = list.size(key);
-        System.out.println("总记录数是："+count);
+        logger.info("总记录数是："+count);
         return list1;
     }
 }
