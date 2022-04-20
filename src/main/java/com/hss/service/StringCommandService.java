@@ -9,5 +9,5 @@ public interface StringCommandService {
     /**
      * String存和取测试
      */
-    String getString(String key);
+    String setAndGet(String key);
 }

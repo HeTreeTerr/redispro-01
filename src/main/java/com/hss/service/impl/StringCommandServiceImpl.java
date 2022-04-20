@@ -1,18 +1,26 @@
 package com.hss.service.impl;
 
 import com.hss.service.StringCommandService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class StringCommandServiceImpl implements StringCommandService {
 
+    private final static Logger logger = Logger.getLogger(StringCommandServiceImpl.class);
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+
+    //作用相当于：redisTemplate.opsForValue()
+    @Resource(name="redisTemplate")
+    private ValueOperations<String, String> string;
 
     /**
      * 通过某个key获取某个值
@@ -20,26 +28,24 @@ public class StringCommandServiceImpl implements StringCommandService {
      * 如果存在，就到redis中查询
      */
     @Override
-    public String getString(String key) {
-
-        ValueOperations<String, String> string = redisTemplate.opsForValue();
+    public String setAndGet(String key) {
 
         //设置有效时长，并可以自定义时长有效单位
         //redisTemplate.expire("java1802", 2, TimeUnit.MINUTES);
         //一般先设置值，再设置时长
-        redisTemplate.opsForValue().set("java2019", "我的小乖乖", 2, TimeUnit.HOURS);
+        //string.set("java2019", "我的小乖乖", 2, TimeUnit.HOURS);
 
         //判断Redis是否存在值
         if(redisTemplate.hasKey(key)) {
             //在Redis中取值，并返回
-            System.out.println("redis中取值");
+            logger.info("redis中取值");
             return string.get(key);
         }else {
             //查询数据库
             String result = "RedisTemplate模板练习";
 
             string.set(key, result);
-            System.out.println("在Mysql数据库中取出并返回");
+            logger.info("在Mysql数据库中取出并返回");
             return result;
         }
     }
