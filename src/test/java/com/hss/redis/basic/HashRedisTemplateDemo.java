@@ -1,16 +1,28 @@
 package com.hss.redis.basic;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hss.bean.User;
 import com.hss.service.UserService;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * redis
  * hash 数据类型操作
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring_redis.xml"})
 public class HashRedisTemplateDemo {
+
+	private final static Logger logger = Logger.getLogger(HashRedisTemplateDemo.class);
+
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 测试hash RedisTemplate
@@ -18,22 +30,15 @@ public class HashRedisTemplateDemo {
 	 */
 	@Test
 	public void setHashValue() {
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring_redis.xml");
-		
-		UserService userService = ctx.getBean(UserService.class);
-		
+
 		User user = new User();
 		user.setId(1);
 		user.setName("hss");
 		user.setUsername("地瓜");
 		user.setAge(18);
 		user.setPassword("666");
-		
 		userService.addUser(user);
-		
-		System.out.println("-------hash---------");
-		
-		ctx.close();
+		logger.info("hash put success");
 	}
 
 	/**
@@ -42,15 +47,7 @@ public class HashRedisTemplateDemo {
 	 */
 	@Test
 	public void getHashValue() {
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring_redis.xml");
-		
-		UserService userService = ctx.getBean(UserService.class);
-		
 		User user = userService.selectById(3);
-		System.out.println(user);
-		
-		System.out.println("-------hash---------");
-		
-		ctx.close();
+		logger.info("hash get user=" + user);
 	}
 }

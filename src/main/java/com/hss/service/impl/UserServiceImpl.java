@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
@@ -19,6 +20,8 @@ import com.hss.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
+
+	private final static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
@@ -55,16 +58,16 @@ public class UserServiceImpl implements UserService{
 		}else {//如果存在
 			//查询登录失败次数的key的结果
 			long longFailCount = Long.parseLong(redisTemplate.opsForValue().get(key));
-			System.out.println(longFailCount);
+			logger.info(longFailCount);
 			if(longFailCount < 4) {//代表如果当前登录次数<4，还有资格尝试
 				//对指定key增加指定数量
 				Long i = 1L;
 				//redisTemplate.opsForValue().increment(key, i);
 				string.increment(key, i);
-				System.out.println("加一成功");
+				logger.info("加一成功");
 				//redisTemplate.opsForValue().increment("doubleKey",5);
 				Long seconds = redisTemplate.getExpire(key, TimeUnit.SECONDS);
-				System.out.println("有效期:"+seconds);
+				logger.info("有效期:"+seconds);
 				return "登录失败，在"+seconds+"内还允许输入错误"+(num-longFailCount-1)+"次";
 			}else {//超过指定登录次数
 				//限制登录key存在，同时设置限制登录时间锁定1小时
@@ -116,7 +119,7 @@ public class UserServiceImpl implements UserService{
 		if(boo) {
 			//User user = (User)redisTemplate.opsForHash().get(User.getUser(),userId+"");
 			User user  = hash.get(User.getUser(),userId);
-			System.out.println("redis中查询的数据");
+			logger.info("redis中查询的数据");
 			return user;
 		}else {//如果不存在，从数据库中查询，取出赋给Redis,并返回
 			User user = new User();
@@ -127,7 +130,7 @@ public class UserServiceImpl implements UserService{
 			user.setPassword("666");
 			//redisTemplate.opsForHash().put("user", user.getId(), user);
 			hash.put(User.getUser(), user.getId(), user);
-			System.out.println("数据库中查询的数据");
+			logger.info("数据库中查询的数据");
 			return user;
 		}
 	}
