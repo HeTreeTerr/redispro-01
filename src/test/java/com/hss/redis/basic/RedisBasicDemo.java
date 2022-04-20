@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hss.constant.RedisConstant;
+import com.hss.listener.Subscriber;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.hss.bean.User;
@@ -18,6 +20,8 @@ import redis.clients.jedis.Jedis;
  */
 public class RedisBasicDemo {
 
+	private final static Logger logger = Logger.getLogger(RedisBasicDemo.class);
+
 	/**
 	 * Java端通过Jedis连接redis
 	 * @param args
@@ -28,9 +32,9 @@ public class RedisBasicDemo {
 		int port = RedisConstant.PORT;
 		Jedis jedis = new Jedis(host, port);
 		//密码
-		//jedis.auth(RedisConstant.PASSWORD);
-		
-		System.out.println(jedis.ping());
+		jedis.auth(RedisConstant.PASSWORD);
+
+		logger.info(jedis.ping());
 		//关闭连接
 		jedis.close();
 	}
@@ -47,14 +51,15 @@ public class RedisBasicDemo {
 		int port = RedisConstant.PORT;
 		Jedis jedis = new Jedis(host, port);
 		//密码
-		//jedis.auth(RedisConstant.PASSWORD);
+		jedis.auth(RedisConstant.PASSWORD);
 		
 		//写入String型数据
-		//jedis.set("strName", "java存入redis");
+		jedis.set("strName", "java存入redis");
+
 		//获取String型数据
 		String strName = jedis.get("strName");
 		
-		System.out.println("获取redis中的数据="+strName);
+		logger.info("获取redis中的数据strName=" + strName);
 		//关闭连接
 		jedis.close();
 	}
@@ -126,7 +131,7 @@ public class RedisBasicDemo {
 	/**
 	 * 对上面的方法进行优化
 	 * Jedis完成Hash类型操作
-	 * User
+	 * 使用User.id进行隔离
 	 */
 	@Test
 	public void t4() {

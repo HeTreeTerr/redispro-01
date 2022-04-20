@@ -9,5 +9,5 @@ public class RedisConstant {
 
     public final static Integer PORT = 6379;
 
-    public final static String PASSWORD = null;
+    public final static String PASSWORD = "root";
 }
