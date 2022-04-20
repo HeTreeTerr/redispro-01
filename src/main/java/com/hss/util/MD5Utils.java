@@ -11,7 +11,7 @@ import java.security.MessageDigest;
 public class MD5Utils {
 	/**
 	 * 对字符串进行加密
-	 * @param text
+	 * @param inStr
 	 * @return
 	 */
 	public static String md5Encode(String inStr) throws Exception {

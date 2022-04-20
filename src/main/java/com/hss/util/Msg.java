@@ -1,4 +1,4 @@
-package com.hss.bean;
+package com.hss.util;
 
 import java.util.HashMap;
 import java.util.Map;
