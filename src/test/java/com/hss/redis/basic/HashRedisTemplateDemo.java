@@ -17,7 +17,7 @@ public class HashRedisTemplateDemo {
 	 * 赋值
 	 */
 	@Test
-	public void t1() {
+	public void setHashValue() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring_redis.xml");
 		
 		UserService userService = ctx.getBean(UserService.class);
@@ -41,7 +41,7 @@ public class HashRedisTemplateDemo {
 	 * 取值
 	 */
 	@Test
-	public void t2() {
+	public void getHashValue() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring_redis.xml");
 		
 		UserService userService = ctx.getBean(UserService.class);

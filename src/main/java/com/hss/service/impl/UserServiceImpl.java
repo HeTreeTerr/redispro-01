@@ -21,49 +21,15 @@ import com.hss.service.UserService;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	RedisTemplate<String, String> redisTemplate;
+	private RedisTemplate<String, String> redisTemplate;
 	
 	//作用相当于：redisTemplate.opsForHash()。简化代码，指定泛型
 	@Resource(name="redisTemplate")
-	HashOperations<String, Integer, User> hash;
+	private HashOperations<String, Integer, User> hash;
 	
 	//作用相当于：redisTemplate.opsForValue()
 	@Resource(name="redisTemplate")
-	ValueOperations<String, String> string;
-	
-	//作用相当于：redisTemplate.opsForList()
-	@Resource(name="redisTemplate")
-	ListOperations<String, String> list;
-	
-	/**
-	 * 通过某个key获取某个值
-	 * 如果key在Redis中不存在，到数据库进行查询
-	 * 如果存在，就到redis中查询
-	 */
-	@Override
-	public String getString(String key) {
-		
-		ValueOperations<String, String> string = redisTemplate.opsForValue();
-		
-		//设置有效时长，并可以自定义时长有效单位
-		//redisTemplate.expire("java1802", 2, TimeUnit.MINUTES);
-		//一般先设置值，再设置时长
-		redisTemplate.opsForValue().set("java2019", "我的小乖乖", 2, TimeUnit.HOURS);
-		
-		//判断Redis是否存在值
-		if(redisTemplate.hasKey(key)) {
-			//在Redis中取值，并返回
-			System.out.println("redis中取值");
-			return string.get(key);
-		}else {
-			//查询数据库
-			String result = "RedisTemplate模板练习";
-			
-			string.set(key, result);
-			System.out.println("在Mysql数据库中取出并返回");
-			return result;
-		}	
-	}
+	private ValueOperations<String, String> string;
 
 	@Override
 	public User login(String username, String password) {
@@ -132,7 +98,6 @@ public class UserServiceImpl implements UserService{
 		//将对象以hash类型存入
 		//redisTemplate.opsForHash().put("user", u.getId(), u);
 		hash.put(User.getUser(), u.getId(), u);
-		
 	}
 
 	@Override
@@ -165,77 +130,5 @@ public class UserServiceImpl implements UserService{
 			System.out.println("数据库中查询的数据");
 			return user;
 		}
-	}
-
-	/**
-	 * list类型
-	 */
-	@Override
-	public void listAdd() {
-		String key = "news:top10";
-//		list.leftPush(key,"京东手机魅族x8");
-//		list.leftPush(key,"京东手机魅族x8手机壳（送钢化膜）");
-//		list.leftPushAll(key, "ccc","ddd","eee");
-//		list.rightPushIfPresent(key, "0qwerdf");
-		list.rightPushAll(key, "1qwerdf","2qwerdf","3qwerdf"
-				,"4qwerdf","5qwerdf","6qwerdf","7qwerdf","8qwerdf"
-				,"9qwerdf");
-		
-	}
-
-	@Override
-	public List<String> listRange() {
-		String key = "news:top10";
-		List<String> list1 = list.range(key, 0, -1);
-		return list1;
-	}
-
-	@Override
-	public List<String> listRangPageHelper(Integer pageNum, Integer pageSize) {
-		String key = "news:top10";
-		/*
-		 * startNum:(pageNum-1)*pageSize;
-		 * 
-		 * stop:pageSize*pageNum-1
-		 */
-		Integer start = (pageNum-1)*pageSize;
-		Integer stop = pageSize*pageNum-1;
-		List<String> list1 = list.range(key, start, stop);
-		Long count = list.size(key);
-		System.out.println("总记录数是："+count);
-		return list1;
-	}
-	
-	//################ list 订单流程示例
-	//1付款完成后，会根据用户的收货地址和商家发货地址生成一个队列（任务）
-	@Override
-	public void listQueueInit(String cardId) {
-		String key = "prod:"+cardId;//初始化的key,待有多少任务要完成		
-		list.leftPushAll(key, "1商家出货","2小哥发件",
-				"3北京海定区某小区--》首都机场","4北京机场--》南京机场"
-				,"5机场--》建业区","6建业区--》买家收货");
-	}
-	
-	//2触发事件
-	@Override
-	public void listQueueTouch(String cardId) {
-		String key = "prod:"+cardId+":succ";//已完成任务队列
-		
-		list.rightPopAndLeftPush("prod:"+cardId, key);
-		
-	}
-	
-	//3查询：客户查询：我的快递到哪了
-	@Override
-	public List<String> listQueueSucc(String cardId){
-		String key = "prod:"+cardId+":succ";//已完成任务队列
-		return list.range(key, 0, -1);
-	}
-	
-	//4物流查询：当前快递还有多少任务没有执行
-	@Override
-	public List<String> listQueueWait(String cardId){
-		String key = "prod:"+cardId;//待完成的任务
-		return list.range(key, 0, -1);
 	}
 }

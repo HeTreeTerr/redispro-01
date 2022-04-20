@@ -1,5 +1,6 @@
 package com.hss.redis.basic;
 
+import com.hss.service.StringCommandService;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,10 +17,10 @@ public class StringRedisTemplateDemo {
 	@Test
 	public void t1() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring_redis.xml");
-		
-		UserService userService = ctx.getBean(UserService.class);
+
+		StringCommandService stringCommand = ctx.getBean(StringCommandService.class);
 		String key = "applicationName123";
-		String result = userService.getString(key);
+		String result = stringCommand.getString(key);
 		System.out.println("String返回值："+result);
 		
 		ctx.close();

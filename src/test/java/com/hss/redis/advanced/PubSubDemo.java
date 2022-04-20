@@ -11,7 +11,7 @@ import redis.clients.jedis.JedisPoolConfig;
  * redis
  * 发布/订阅
  */
-public class PubSubTest {
+public class PubSubDemo {
 	
 	public static void main( String[] args )
     {

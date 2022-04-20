@@ -1,4 +1,4 @@
-package com.hss.redis.basic;
+package com.hss.redis.advanced;
 
 import com.hss.constant.RedisConstant;
 import org.junit.Test;
