@@ -11,6 +11,8 @@ import com.hss.service.UserService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.UUID;
+
 /**
  * String 基础操作
  */
@@ -27,10 +29,19 @@ public class StringRedisTemplateDemo {
 	 * 测试string RedisTemplate
 	 */
 	@Test
-	public void t1() {
+	public void setAndGet() {
 		String key = "applicationName123";
 		String result = stringCommandService.setAndGet(key);
 		logger.info("String返回值："+result);
 	}
 
+	/**
+	 * 当key不存在时赋值
+	 */
+	@Test
+	public void setIfAbsent(){
+		String value = UUID.randomUUID().toString() + Thread.currentThread().getName();
+		Boolean setIfAbsent = stringCommandService.setIfAbsent("myLock1", value, 30L);
+		logger.info("setIfAbsent = " + setIfAbsent);
+	}
 }

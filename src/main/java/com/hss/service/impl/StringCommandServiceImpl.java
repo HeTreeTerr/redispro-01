@@ -49,4 +49,9 @@ public class StringCommandServiceImpl implements StringCommandService {
             return result;
         }
     }
+
+    @Override
+    public Boolean setIfAbsent(String key, String value, Long time) {
+        return string.setIfAbsent(key,value,time,TimeUnit.SECONDS);
+    }
 }
