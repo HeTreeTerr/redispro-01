@@ -16,11 +16,11 @@ public class StringCommandServiceImpl implements StringCommandService {
     private final static Logger logger = Logger.getLogger(StringCommandServiceImpl.class);
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     //作用相当于：redisTemplate.opsForValue()
     @Resource(name="redisTemplate")
-    private ValueOperations<String, String> string;
+    private ValueOperations<String, Object> string;
 
     /**
      * 通过某个key获取某个值
@@ -39,7 +39,7 @@ public class StringCommandServiceImpl implements StringCommandService {
         if(redisTemplate.hasKey(key)) {
             //在Redis中取值，并返回
             logger.info("redis中取值");
-            return string.get(key);
+            return String.valueOf(string.get(key));
         }else {
             //查询数据库
             String result = "RedisTemplate模板练习";
@@ -51,7 +51,17 @@ public class StringCommandServiceImpl implements StringCommandService {
     }
 
     @Override
-    public Boolean setIfAbsent(String key, String value, Long time) {
+    public Boolean setIfAbsent(String key, Object value, Long time) {
         return string.setIfAbsent(key,value,time,TimeUnit.SECONDS);
+    }
+
+    @Override
+    public Long autoIncrement(String key) {
+        return string.increment(key);
+    }
+
+    @Override
+    public Long autoDecrease(String key) {
+        return string.decrement(key);
     }
 }

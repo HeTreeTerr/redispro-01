@@ -18,5 +18,19 @@ public interface StringCommandService {
      * @param time
      * @return
      */
-    Boolean setIfAbsent(String key,String value,Long time);
+    Boolean setIfAbsent(String key,Object value,Long time);
+
+    /**
+     * 递增
+     * @param key
+     * @return
+     */
+    Long autoIncrement(String key);
+
+    /**
+     * 递减
+     * @param key
+     * @return
+     */
+    Long autoDecrease(String key);
 }

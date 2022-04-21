@@ -36,12 +36,32 @@ public class StringRedisTemplateDemo {
 	}
 
 	/**
-	 * 当key不存在时赋值
+	 * 测试string 当key不存在时赋值
 	 */
 	@Test
 	public void setIfAbsent(){
 		String value = UUID.randomUUID().toString() + Thread.currentThread().getName();
 		Boolean setIfAbsent = stringCommandService.setIfAbsent("myLock1", value, 30L);
 		logger.info("setIfAbsent = " + setIfAbsent);
+	}
+
+	/**
+	 * 测试 string 递增
+	 */
+	@Test
+	public void autoIncrement(){
+		String key = "increment";
+		Long resLong = stringCommandService.autoIncrement(key);
+		logger.info("resLong = " + resLong);
+	}
+
+	/**
+	 * 测试 string 递减
+	 */
+	@Test
+	public void autoDecrease(){
+		String key = "decrease";
+		Long resLong = stringCommandService.autoDecrease(key);
+		logger.info("resLong = " + resLong);
 	}
 }
