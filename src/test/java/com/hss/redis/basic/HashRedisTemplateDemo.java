@@ -12,6 +12,9 @@ import com.hss.service.UserService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * redis
  * hash 数据类型操作
@@ -30,10 +33,10 @@ public class HashRedisTemplateDemo {
 	 * 赋值
 	 */
 	@Test
-	public void setHashValue() {
+	public void put() {
 
 		User user = new User();
-		user.setId(1);
+		user.setId(3);
 		user.setName("hss");
 		user.setUsername("地瓜");
 		user.setAge(18);
@@ -44,11 +47,40 @@ public class HashRedisTemplateDemo {
 
 	/**
 	 * 测试hash RedisTemplate
-	 * 取值
+	 * 取值（某项）
 	 */
 	@Test
-	public void getHashValue() {
+	public void get() {
 		User user = hashCommandService.get(1);
 		logger.info("hash get user=" + user);
+	}
+
+	/**
+	 * 测试hash RedisTemplate
+	 * 取值（所有）
+	 */
+	@Test
+	public void entries(){
+		Map<Object, Object> objectMap = hashCommandService.entries();
+		logger.info("objectMap=" + objectMap);
+	}
+
+	/**
+	 * 测试hash RedisTemplate
+	 * 取值（所有）
+	 */
+	@Test
+	public void values(){
+		List<Object> objectList = hashCommandService.values();
+		logger.info("objectList=" + objectList);
+	}
+
+	/**
+	 * 测试hash RedisTemplate
+	 * 数量
+	 */
+	@Test
+	public void size(){
+		logger.info(hashCommandService.size());
 	}
 }
