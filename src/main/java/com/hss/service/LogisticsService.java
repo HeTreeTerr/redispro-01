@@ -24,12 +24,12 @@ public interface LogisticsService {
      * @param cardId
      * @return
      */
-    List<String> listQueueSucc(String cardId);
+    List<Object> listQueueSucc(String cardId);
 
     /**
      * 4物流查询：当前快递还有多少任务没有执行
      * @param cardId
      * @return
      */
-    List<String> listQueueWait(String cardId);
+    List<Object> listQueueWait(String cardId);
 }

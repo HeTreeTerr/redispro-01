@@ -12,7 +12,7 @@ public class LogisticsServiceImpl implements LogisticsService {
 
     //作用相当于：redisTemplate.opsForList()
     @Resource(name="redisTemplate")
-    private ListOperations<String, String> list;
+    private ListOperations<String, Object> list;
 
     //################ list 订单流程示例
     @Override
@@ -32,13 +32,13 @@ public class LogisticsServiceImpl implements LogisticsService {
     }
 
     @Override
-    public List<String> listQueueSucc(String cardId){
+    public List<Object> listQueueSucc(String cardId){
         String key = "prod:"+cardId+":succ";//已完成任务队列
         return list.range(key, 0, -1);
     }
 
     @Override
-    public List<String> listQueueWait(String cardId){
+    public List<Object> listQueueWait(String cardId){
         String key = "prod:"+cardId;//待完成的任务
         return list.range(key, 0, -1);
     }

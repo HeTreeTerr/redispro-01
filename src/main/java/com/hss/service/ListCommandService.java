@@ -9,15 +9,15 @@ import java.util.List;
 public interface ListCommandService {
 
     /**
-     * 写入
+     * 赋值
      */
-    void listAdd();
+    void push();
 
     /**
-     * 查找
+     * 获取
      * @return
      */
-    List<String> listRange();
+    List<Object> range();
 
     /**
      * 分页查询
@@ -25,5 +25,11 @@ public interface ListCommandService {
      * @param pageSize
      * @return
      */
-    List<String> listRangPageHelper(Integer pageNum,Integer pageSize);
+    List<Object> rangPageHelper(Integer pageNum,Integer pageSize);
+
+    /**
+     * 裁剪
+     * @return
+     */
+    void trim();
 }

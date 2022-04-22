@@ -22,21 +22,16 @@ import com.hss.service.UserService;
 public class ListRedisTemplateDemo {
 
 	private final static Logger logger = Logger.getLogger(ListRedisTemplateDemo.class);
-	
-	private static final String cardId = "1009688";
 
 	@Autowired
 	private ListCommandService listCommandService;
-
-	@Autowired
-	private LogisticsService logisticsService;
 
 	/**
 	 * list 赋值
 	 */
 	@Test
-	public void test() {
-		listCommandService.listAdd();
+	public void push() {
+		listCommandService.push();
 		logger.info("添加成功");
 	}
 
@@ -44,8 +39,8 @@ public class ListRedisTemplateDemo {
 	 * list 获值
 	 */
 	@Test
-	public void test2() {
-		List<String> list = listCommandService.listRange();
+	public void range() {
+		List<Object> list = listCommandService.range();
 		logger.info("redisTemplate list类型数据操作："+list.toString());
 	}
 
@@ -53,43 +48,22 @@ public class ListRedisTemplateDemo {
 	 * 实现list 分页
 	 */
 	@Test
-	public void test3() {
+	public void rangPageHelper() {
 		int pageNum = 1;//当前页
 		int pageSize = 3;//每页显示3条数据
-		List<String> list = listCommandService.listRangPageHelper(pageNum, pageSize);
+		List<Object> list = listCommandService.rangPageHelper(pageNum, pageSize);
 		
-		for(String s : list) {
+		for(Object s : list) {
 			logger.info(s);
 		}		
 	}
 
+	/**
+	 * list 裁剪
+	 */
 	@Test
-	public void test4() {
-		//初始化物流信息
-		logisticsService.listQueueInit(cardId);
-		logger.info("初始化物流信息成功");
-	}
-	
-	@Test
-	public void test5() {
-		//更新物流信息
-		logisticsService.listQueueTouch(cardId);
-		logger.info("物流信息更新成功");
-	}
-	
-	@Test
-	public void test6() {
-		//用户查询物流信息
-		List<String> listSucc = logisticsService.listQueueSucc(cardId);
-		logger.info("用户查询物流进度---------->");
-		logger.info(listSucc);
-	}
-	
-	@Test 
-	public void test7() {
-		//物流公司查询物流信息
-		List<String>listWait = logisticsService.listQueueWait(cardId);
-		logger.info("物流公司查询剩余任务--------->");
-		logger.info(listWait);
+	public void trim() {
+		listCommandService.trim();
+		logger.info("success");
 	}
 }
