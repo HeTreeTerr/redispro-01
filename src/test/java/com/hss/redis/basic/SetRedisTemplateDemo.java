@@ -25,7 +25,15 @@ public class SetRedisTemplateDemo {
      */
     @Test
     public void add(){
-        setCommandService.add("李四");
+        setCommandService.add("a3");
         logger.info("success");
+    }
+
+    /**
+     * set 取值（所有）
+     */
+    @Test
+    public void members(){
+        logger.info(setCommandService.members());
     }
 }

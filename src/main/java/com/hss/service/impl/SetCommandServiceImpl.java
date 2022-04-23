@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 @Service
 public class SetCommandServiceImpl implements SetCommandService {
@@ -22,5 +23,10 @@ public class SetCommandServiceImpl implements SetCommandService {
     @Override
     public Long add(String value) {
         return set.add(KEY,value);
+    }
+
+    @Override
+    public Set<Object> members() {
+        return set.members(KEY);
     }
 }
