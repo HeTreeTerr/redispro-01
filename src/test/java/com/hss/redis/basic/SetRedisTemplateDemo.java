@@ -30,10 +30,17 @@ public class SetRedisTemplateDemo {
     }
 
     /**
-     * set 取值（所有）
+     * get 取值（所有）
      */
     @Test
     public void members(){
         logger.info(setCommandService.members());
+    }
+
+    /**
+     * 取值（随机一个）
+     */
+    public void randomMember() {
+
     }
 }

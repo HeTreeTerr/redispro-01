@@ -29,4 +29,9 @@ public class SetCommandServiceImpl implements SetCommandService {
     public Set<Object> members() {
         return set.members(KEY);
     }
+
+    @Override
+    public Object randomMember() {
+        return set.randomMember(KEY);
+    }
 }

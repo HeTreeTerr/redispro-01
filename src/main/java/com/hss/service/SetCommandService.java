@@ -20,4 +20,10 @@ public interface SetCommandService {
      * @return
      */
     Set<Object> members();
+
+    /**
+     * 取值（随机获取一个）
+     * @return
+     */
+    Object randomMember();
 }
