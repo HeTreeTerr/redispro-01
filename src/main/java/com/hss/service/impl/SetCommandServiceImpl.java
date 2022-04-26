@@ -34,4 +34,9 @@ public class SetCommandServiceImpl implements SetCommandService {
     public Object randomMember() {
         return set.randomMember(KEY);
     }
+
+    @Override
+    public Long remove(String value) {
+        return set.remove(KEY,value);
+    }
 }

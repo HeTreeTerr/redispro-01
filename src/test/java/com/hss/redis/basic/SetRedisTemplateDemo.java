@@ -21,7 +21,7 @@ public class SetRedisTemplateDemo {
     private SetCommandService setCommandService;
 
     /**
-     * set 赋值
+     * 赋值
      */
     @Test
     public void add(){
@@ -30,7 +30,7 @@ public class SetRedisTemplateDemo {
     }
 
     /**
-     * get 取值（所有）
+     * 取值（所有）
      */
     @Test
     public void members(){
@@ -40,7 +40,13 @@ public class SetRedisTemplateDemo {
     /**
      * 取值（随机一个）
      */
+    @Test
     public void randomMember() {
+        logger.info(setCommandService.randomMember());
+    }
 
+    @Test
+    public void remove(){
+        logger.info(setCommandService.remove("李四"));
     }
 }

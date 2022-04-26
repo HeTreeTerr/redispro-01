@@ -26,4 +26,11 @@ public interface SetCommandService {
      * @return
      */
     Object randomMember();
+
+    /**
+     * 移除
+     * @param value
+     * @return
+     */
+    Long remove(String value);
 }
