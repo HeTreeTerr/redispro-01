@@ -45,6 +45,9 @@ public class SetRedisTemplateDemo {
         logger.info(setCommandService.randomMember());
     }
 
+    /**
+     * 移除
+     */
     @Test
     public void remove(){
         logger.info(setCommandService.remove("李四"));

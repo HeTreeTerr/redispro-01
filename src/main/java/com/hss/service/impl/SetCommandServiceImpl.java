@@ -15,7 +15,6 @@ public class SetCommandServiceImpl implements SetCommandService {
 
     private final static String KEY = "set:user";
 
-    //作用相当于：redisTemplate.opsForList()
     @Resource(name="redisTemplate")
     private SetOperations<String, Object> set;
 
