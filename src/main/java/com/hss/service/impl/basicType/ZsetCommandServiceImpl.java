@@ -1,6 +1,6 @@
-package com.hss.service.impl;
+package com.hss.service.impl.basicType;
 
-import com.hss.service.ZsetCommandService;
+import com.hss.service.basicType.ZsetCommandService;
 import org.apache.log4j.Logger;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;

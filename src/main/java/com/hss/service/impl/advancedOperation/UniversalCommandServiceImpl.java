@@ -1,8 +1,8 @@
-package com.hss.service.impl;
+package com.hss.service.impl.advancedOperation;
 
-import com.hss.service.UniversalCommandService;
+import com.hss.service.advancedOperation.UniversalCommandService;
+import com.hss.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -11,15 +11,14 @@ import java.util.Set;
 public class UniversalCommandServiceImpl implements UniversalCommandService {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-
+    private RedisUtil redisUtil;
 
     @Override
     public void batchDelete(String pattern) {
-        Set<String> keys = redisTemplate.keys(pattern);
+        Set<String> keys = redisUtil.getPatternKey(pattern);
         System.out.println(keys);
         if(keys != null && !keys.isEmpty()) {
-            redisTemplate.delete(keys);
+            redisUtil.del(keys);
         }
     }
 }

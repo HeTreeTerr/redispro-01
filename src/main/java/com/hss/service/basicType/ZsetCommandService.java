@@ -1,4 +1,4 @@
-package com.hss.service;
+package com.hss.service.basicType;
 
 import org.springframework.data.redis.core.ZSetOperations;
 

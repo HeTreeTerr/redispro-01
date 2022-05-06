@@ -1,6 +1,6 @@
-package com.hss.redis.basic;
+package com.hss.service.impl.basicType;
 
-import com.hss.service.SetCommandService;
+import com.hss.service.basicType.SetCommandService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring_redis.xml"})
-public class SetRedisTemplateDemo {
+public class SetCommandServiceImplTest {
 
-    private final static Logger logger = Logger.getLogger(SetRedisTemplateDemo.class);
+    private final static Logger logger = Logger.getLogger(SetCommandServiceImplTest.class);
 
     @Autowired
     private SetCommandService setCommandService;

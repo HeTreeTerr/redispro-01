@@ -1,6 +1,6 @@
-package com.hss.redis.advanced;
+package com.hss.service.impl.advancedOperation;
 
-import com.hss.service.UniversalCommandService;
+import com.hss.service.advancedOperation.UniversalCommandService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +9,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * redis 批量删除
+ * redis 通用指令使用
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring_redis.xml"})
-public class RedisBatchDeletionDemo {
+public class UniversalCommandServiceImplTest {
 
-    private final static Logger logger = Logger.getLogger(RedisBatchDeletionDemo.class);
+    private final static Logger logger = Logger.getLogger(UniversalCommandServiceImplTest.class);
 
     @Autowired
     private UniversalCommandService universalCommandService;
@@ -26,9 +26,8 @@ public class RedisBatchDeletionDemo {
     @Test
     public void batchDeletion() {
         //删除规则（通配符）
-        String pattern = "user*";
+        String pattern = "zset*";
         universalCommandService.batchDelete(pattern);
         logger.info("批量删除成功!");
     }
-
 }

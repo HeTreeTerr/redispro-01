@@ -1,4 +1,4 @@
-package com.hss.service;
+package com.hss.service.basicType;
 
 import java.util.Set;
 

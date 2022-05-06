@@ -1,6 +1,6 @@
-package com.hss.redis.basic;
+package com.hss.service.impl.basicType;
 
-import com.hss.service.ZsetCommandService;
+import com.hss.service.basicType.ZsetCommandService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +18,9 @@ import java.util.Set;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring_redis.xml"})
-public class ZsetRedisTemplateDemo {
+public class ZsetCommandServiceImplTest {
 
-    private final static Logger logger = Logger.getLogger(ZsetRedisTemplateDemo.class);
+    private final static Logger logger = Logger.getLogger(ZsetCommandServiceImplTest.class);
 
     @Autowired
     private ZsetCommandService zsetCommandService;

@@ -1,8 +1,8 @@
-package com.hss.service.impl;
+package com.hss.service.impl.basicType;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.hss.bean.User;
-import com.hss.service.HashCommandService;
+import com.hss.service.basicType.HashCommandService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;

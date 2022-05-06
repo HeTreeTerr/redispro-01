@@ -1,4 +1,4 @@
-package com.hss.service;
+package com.hss.service.basicType;
 
 /**
  * string 类型

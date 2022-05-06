@@ -1,4 +1,4 @@
-package com.hss.service;
+package com.hss.service.advancedOperation;
 
 /**
  * 通用命令&组装命令
