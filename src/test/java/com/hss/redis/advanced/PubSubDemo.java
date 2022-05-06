@@ -1,8 +1,8 @@
 package com.hss.redis.advanced;
 
 import com.hss.constant.RedisConstant;
-import com.hss.listener.Publisher;
-import com.hss.listener.SubThread;
+import com.hss.listener.nativeV1.Publisher;
+import com.hss.listener.nativeV1.SubThread;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;

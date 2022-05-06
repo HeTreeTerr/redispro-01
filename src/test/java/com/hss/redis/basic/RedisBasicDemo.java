@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hss.constant.RedisConstant;
-import com.hss.listener.Subscriber;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
