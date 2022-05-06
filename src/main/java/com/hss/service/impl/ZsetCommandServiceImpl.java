@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 @Service
 public class ZsetCommandServiceImpl implements ZsetCommandService {
@@ -20,5 +21,10 @@ public class ZsetCommandServiceImpl implements ZsetCommandService {
     @Override
     public Boolean add(String value, double score) {
         return zset.add(KEY, value, score);
+    }
+
+    @Override
+    public Long batchAdd(Set<ZSetOperations.TypedTuple<Object>> values) {
+        return zset.add(KEY,values);
     }
 }
