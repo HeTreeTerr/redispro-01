@@ -45,4 +45,13 @@ public class ZsetRedisTemplateDemo {
         typedTupleSet.add(new DefaultTypedTuple<>("鳄鱼",3.0));
         logger.info(zsetCommandService.batchAdd(typedTupleSet));
     }
+
+    /**
+     * 移除
+     */
+    @Test
+    public void remove(){
+        logger.info(zsetCommandService.remove("张三"));
+        logger.info(zsetCommandService.remove("李四"));
+    }
 }

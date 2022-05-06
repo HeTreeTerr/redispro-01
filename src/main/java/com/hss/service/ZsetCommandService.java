@@ -24,4 +24,11 @@ public interface ZsetCommandService {
      * @return
      */
     Long batchAdd(Set<ZSetOperations.TypedTuple<Object>> values);
+
+    /**
+     * 移除
+     * @param values
+     * @return
+     */
+    Long remove(Object... values);
 }

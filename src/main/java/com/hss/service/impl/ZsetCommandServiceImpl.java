@@ -27,4 +27,9 @@ public class ZsetCommandServiceImpl implements ZsetCommandService {
     public Long batchAdd(Set<ZSetOperations.TypedTuple<Object>> values) {
         return zset.add(KEY,values);
     }
+
+    @Override
+    public Long remove(Object... values) {
+        return zset.remove(KEY,values);
+    }
 }
