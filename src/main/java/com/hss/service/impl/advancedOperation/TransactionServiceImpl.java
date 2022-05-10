@@ -20,9 +20,31 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public void transactionBegin01() {
-        redisTemplate.setEnableTransactionSupport(true);
-        Boolean flag = true;
+    public Boolean initOverage(String from, String to) {
+        logger.info("==========账户余额初始化 begin==========");
+        //开启批量任务
+        redisTemplate.multi();
+
+        Boolean fromRes = redisUtil.set(from, String.valueOf(500));
+        Boolean toRes = redisUtil.set(to, String.valueOf(500));
+
+        if(fromRes && toRes){
+            //执行
+            redisTemplate.exec();
+            logger.info("==========账户余额初始化 success==========");
+            return true;
+        }else {
+            //丢弃
+            redisTemplate.discard();
+            logger.info("==========账户余额初始化 fail==========");
+            return false;
+        }
+
+    }
+
+    @Override
+    public void transfer(String from, String to, Float amount) {
+        /*Boolean flag = false;
         //开启批量任务
         redisTemplate.multi();
         redisUtil.set("string:a1","4396");
@@ -33,7 +55,6 @@ public class TransactionServiceImpl implements TransactionService {
         }else {
             //丢弃
             redisTemplate.discard();
-        }
-
+        }*/
     }
 }

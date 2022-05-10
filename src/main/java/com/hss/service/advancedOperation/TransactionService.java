@@ -5,5 +5,18 @@ package com.hss.service.advancedOperation;
  */
 public interface TransactionService {
 
-    void transactionBegin01();
+    /**
+     * 初始化账户余额
+     * @param from
+     * @param to
+     */
+    Boolean initOverage(String from, String to);
+
+    /**
+     * 转账
+     * @param from
+     * @param to
+     * @param amount
+     */
+    void transfer(String from, String to, Float amount);
 }
