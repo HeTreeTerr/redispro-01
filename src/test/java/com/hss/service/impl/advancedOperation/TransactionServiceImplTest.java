@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring_redis.xml"})
 public class TransactionServiceImplTest {
@@ -26,7 +28,7 @@ public class TransactionServiceImplTest {
      */
     @Test
     public void initOverage(){
-        transactionService.initOverage(FROM_ACCOUNT, TO_ACCOUNT);
+        logger.info(transactionService.initOverage(FROM_ACCOUNT, TO_ACCOUNT));
     }
 
     /**
@@ -34,6 +36,6 @@ public class TransactionServiceImplTest {
      */
     @Test
     public void transfer(){
-//        transactionService.transfer();
+        logger.info(transactionService.transfer(FROM_ACCOUNT, TO_ACCOUNT, new BigDecimal(4)));
     }
 }

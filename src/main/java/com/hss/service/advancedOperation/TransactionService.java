@@ -1,5 +1,7 @@
 package com.hss.service.advancedOperation;
 
+import java.math.BigDecimal;
+
 /**
  * 事务 特性
  */
@@ -18,5 +20,6 @@ public interface TransactionService {
      * @param to
      * @param amount
      */
-    void transfer(String from, String to, Float amount);
+    Boolean transfer(String from, String to, BigDecimal amount);
+
 }
