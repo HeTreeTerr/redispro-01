@@ -38,4 +38,12 @@ public class TransactionServiceImplTest {
     public void transfer(){
         logger.info(transactionService.transfer(FROM_ACCOUNT, TO_ACCOUNT, new BigDecimal(4)));
     }
+
+    /**
+     * 转账 优化版
+     */
+    @Test
+    public void transferSessionCallback(){
+        logger.info(transactionService.transferSessionCallback(FROM_ACCOUNT, TO_ACCOUNT, new BigDecimal(4)));
+    }
 }

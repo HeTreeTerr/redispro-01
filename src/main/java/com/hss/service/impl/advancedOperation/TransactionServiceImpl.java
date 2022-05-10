@@ -89,4 +89,46 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
+    @Override
+    public Boolean transferSessionCallback(String from, String to, BigDecimal amount) {
+        logger.info("==========转账 begin==========");
+        //判断账号是否存在
+        if(!redisTemplate.hasKey(from) || !redisTemplate.hasKey(to)){
+            logger.info("from 或 to 账号信息不存在！");
+            return false;
+        }
+        BigDecimal fromAmount = new BigDecimal(redisTemplate.opsForValue().get(from).toString());
+        BigDecimal toAmount = new BigDecimal(redisTemplate.opsForValue().get(to).toString());
+        //判读付款余额是否充足
+        if(fromAmount.compareTo(amount) == -1){
+            logger.info("from 账号余额不足！");
+            return false;
+        }
+
+        return redisTemplate.execute(new SessionCallback<Boolean>() {
+            @Override
+            public Boolean execute(RedisOperations operations) throws DataAccessException {
+                //监视key
+                operations.watch(Arrays.asList(from, to));
+                //开启批量任务
+                operations.multi();
+
+                //付款账户（减）
+                operations.opsForValue().decrement(from,Long.valueOf(amount.toString()));
+                //收款账户（增）
+                operations.opsForValue().increment(to,Long.valueOf(amount.toString()));
+
+                //执行
+                List<Object> exec = operations.exec();
+                if(ObjectUtil.isNotEmpty(exec) && !exec.isEmpty()){
+                    logger.info("==========转账 success==========");
+                    return true;
+                }else {
+                    logger.info("==========转账 fail==========");
+                    return false;
+                }
+            }
+        });
+    }
+
 }
