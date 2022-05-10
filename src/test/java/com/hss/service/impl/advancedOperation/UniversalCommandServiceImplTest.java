@@ -30,4 +30,13 @@ public class UniversalCommandServiceImplTest {
         universalCommandService.batchDelete(pattern);
         logger.info("批量删除成功!");
     }
+
+    /**
+     * 获取key的类型
+     */
+    @Test
+    public void type(){
+        String key = "set:user";
+        logger.info(universalCommandService.type(key));
+    }
 }
