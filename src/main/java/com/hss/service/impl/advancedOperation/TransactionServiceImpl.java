@@ -1,9 +1,7 @@
 package com.hss.service.impl.advancedOperation;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.hss.exception.ServiceException;
 import com.hss.service.advancedOperation.TransactionService;
-import com.hss.util.RedisUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,25 +28,18 @@ public class TransactionServiceImpl implements TransactionService {
         logger.info("==========账户余额初始化 begin==========");
         //开启批量任务
         redisTemplate.multi();
-        try {
 
-            redisTemplate.opsForValue().set(from, String.valueOf(500));
-            redisTemplate.opsForValue().set(to, String.valueOf(500));
-            //执行
-            List<Object> exec = redisTemplate.exec();
-            if(ObjectUtil.isNotEmpty(exec) && !exec.isEmpty()){
-                logger.info("==========账户余额初始化 success==========");
-                return true;
-            }else {
-                logger.info("==========账户余额初始化 fail==========");
-                return false;
-            }
-        }catch (ServiceException e){
-            //回撤
-            redisTemplate.discard();
-            logger.error(e.getMessage());
+        redisTemplate.opsForValue().set(from, String.valueOf(500));
+        redisTemplate.opsForValue().set(to, String.valueOf(500));
+        //执行
+        List<Object> exec = redisTemplate.exec();
+        if(ObjectUtil.isNotEmpty(exec) && !exec.isEmpty()){
+            logger.info("==========账户余额初始化 success==========");
+            return true;
+        }else {
+            logger.info("==========账户余额初始化 fail==========");
+            return false;
         }
-        return false;
     }
 
     @Override
