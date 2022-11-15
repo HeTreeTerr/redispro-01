@@ -4,6 +4,8 @@ import com.hss.constant.RedisConstant;
 import com.hss.listener.nativeV1.Publisher;
 import com.hss.listener.nativeV1.SubThread;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -12,6 +14,8 @@ import redis.clients.jedis.JedisPoolConfig;
  * 发布/订阅
  */
 public class PubSubDemo {
+
+    private static Logger logger = LoggerFactory.getLogger(PubSubDemo.class);
 	
 	public static void main( String[] args )
     {
@@ -21,8 +25,8 @@ public class PubSubDemo {
                 RedisConstant.PORT,
                 10000,
                 RedisConstant.PASSWORD);
-        
-        System.out.println(String.format("redis pool is starting, redis ip %s, redis port %d", "127.0.0.1", 6379));
+
+        logger.info("redis pool is starting, redis ip {}, redis port {}", "127.0.0.1", 6379);
 
         SubThread subThread = new SubThread(jedisPool);  //订阅者
         subThread.start();

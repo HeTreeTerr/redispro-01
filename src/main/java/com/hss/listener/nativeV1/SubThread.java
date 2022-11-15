@@ -22,14 +22,15 @@ public class SubThread extends Thread{
 
     @Override
     public void run() {
-        //System.out.println(String.format("subscribe redis, channel %s, thread will be blocked", channel));
-        logger.info("subscribe redis, channel-- "+ channel +", thread will be blocked");
+        logger.info("subscribe redis, channel-- {}, thread will be blocked",channel);
         Jedis jedis = null;
         try {
-            jedis = jedisPool.getResource();   //取出一个连接
-            jedis.subscribe(subscriber, channel);    //通过subscribe 的api去订阅，入参是订阅者和频道名
+            //取出一个连接
+            jedis = jedisPool.getResource();
+            //通过subscribe 的api去订阅，入参是订阅者和频道名
+            jedis.subscribe(subscriber, channel);
         } catch (Exception e) {
-            System.out.println(String.format("subsrcibe channel error, %s", e));
+            logger.error(String.format("subsrcibe channel error", e));
         } finally {
             if (jedis != null) {
                 jedis.close();
