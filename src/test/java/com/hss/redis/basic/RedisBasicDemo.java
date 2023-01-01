@@ -1,4 +1,6 @@
 package com.hss.redis.basic;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -173,6 +175,27 @@ public class RedisBasicDemo {
 			System.out.println("数据库查询的结果："+user);
 		}
 		
+		//关闭连接
+		RedisPoolUtil.close(jedis);
+	}
+
+	/**
+	 * Jedis 执行lua脚本
+	 */
+	@Test
+	public void lua(){
+		Jedis jedis = RedisPoolUtil.getRedis();
+		String key = "strName1";
+		String LUA_SCRIPT =
+				"if(redis.call(\"EXISTS\",KEYS[1])==1)\n" +
+						"then\n" +
+						"return 1\n" +
+						"else\n" +
+						"return 0\n" +
+						"end";
+
+		Object result = jedis.evalsha(jedis.scriptLoad(LUA_SCRIPT), Arrays.asList(key), Collections.emptyList());
+		System.out.println("result = " + result);
 		//关闭连接
 		RedisPoolUtil.close(jedis);
 	}
