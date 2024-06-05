@@ -1,8 +1,5 @@
 package com.hss.redis.basic;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import com.hss.constant.RedisConstant;
 import org.apache.log4j.Logger;
@@ -12,6 +9,8 @@ import com.hss.bean.User;
 import com.hss.util.RedisPoolUtil;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.ScanParams;
+import redis.clients.jedis.ScanResult;
 
 /**
  * redis 基础操作
@@ -54,13 +53,18 @@ public class RedisBasicDemo {
 		//密码
 		jedis.auth(RedisConstant.PASSWORD);
 		
-		//写入String型数据
+		/*//写入String型数据
 		jedis.set("strName", "java存入redis");
 
 		//获取String型数据
 		String strName = jedis.get("strName");
 		
-		logger.info("获取redis中的数据strName=" + strName);
+		logger.info("获取redis中的数据strName=" + strName);*/
+		jedis.set("hss:0001","123");
+		jedis.set("hss:0002","123");
+		jedis.set("hss:0003","123");
+		jedis.set("hss:0004","123");
+		jedis.set("hss:0005","123");
 		//关闭连接
 		jedis.close();
 	}
@@ -198,5 +202,32 @@ public class RedisBasicDemo {
 		System.out.println("result = " + result);
 		//关闭连接
 		RedisPoolUtil.close(jedis);
+	}
+
+	@Test
+	public void scan(){
+		Jedis jedis = RedisPoolUtil.getRedis();
+		//定义key
+		String key = "hss:*";
+
+		Set<String> set = new HashSet<>();
+		ScanParams params = new ScanParams();
+		params.match(key);
+		params.count(2);
+		String cursor = ScanParams.SCAN_POINTER_START;
+		while (true) {
+			ScanResult scanResult = jedis.scan(cursor,params);
+			List<String> elements = scanResult.getResult();
+			if (elements != null && elements.size() > 0) {
+				set.addAll(elements);
+			}
+			cursor = scanResult.getStringCursor();
+			if (ScanParams.SCAN_POINTER_START.equals(cursor)) {
+				break;
+			}
+		}
+		RedisPoolUtil.close(jedis);
+		//输出结果
+		System.out.println(set);
 	}
 }
