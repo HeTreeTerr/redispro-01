@@ -53,18 +53,23 @@ public class RedisBasicDemo {
 		//密码
 		jedis.auth(RedisConstant.PASSWORD);
 		
-		/*//写入String型数据
+		//写入String型数据
 		jedis.set("strName", "java存入redis");
 
 		//获取String型数据
 		String strName = jedis.get("strName");
 		
-		logger.info("获取redis中的数据strName=" + strName);*/
-		jedis.set("hss:0001","123");
+		logger.info("获取redis中的数据strName=" + strName);
+
+		/*jedis.set("hss:0001","123");
 		jedis.set("hss:0002","123");
 		jedis.set("hss:0003","123");
 		jedis.set("hss:0004","123");
-		jedis.set("hss:0005","123");
+		jedis.set("hss:0005","123");*/
+
+		/*for (int i = 0; i < 120; i++) {
+			jedis.set("hss:" + i,"123");
+		}*/
 		//关闭连接
 		jedis.close();
 	}
@@ -207,13 +212,14 @@ public class RedisBasicDemo {
 	@Test
 	public void scan(){
 		Jedis jedis = RedisPoolUtil.getRedis();
+
 		//定义key
 		String key = "hss:*";
 
 		Set<String> set = new HashSet<>();
 		ScanParams params = new ScanParams();
 		params.match(key);
-		params.count(2);
+		params.count(10);
 		String cursor = ScanParams.SCAN_POINTER_START;
 		while (true) {
 			ScanResult scanResult = jedis.scan(cursor,params);
@@ -226,8 +232,14 @@ public class RedisBasicDemo {
 				break;
 			}
 		}
-		RedisPoolUtil.close(jedis);
 		//输出结果
-		System.out.println(set);
+		System.out.println(set.size());
+
+		//清除
+		if(!set.isEmpty()){
+			jedis.del(set.stream().toArray(String[]::new));
+		}
+
+		RedisPoolUtil.close(jedis);
 	}
 }
